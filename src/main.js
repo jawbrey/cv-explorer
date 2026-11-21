@@ -2,7 +2,7 @@ const { invoke } = window.__TAURI__.core;
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 // ComicVine descriptions are HTML; reduce to inert plain text.
-const txt = (h) => new DOMParser().parseFromString(h || "", "text/html").body.textContent.trim();
+const txt = (h) => new DOMParser().parseFromString((h || "").replace(/<\/(p|div|li|h[1-6]|tr)>|<br\s*\/?>/gi, " "), "text/html").body.textContent.replace(/\s+/g, " ").trim();
 const img = (u) => (u ? `<img loading="lazy" src="${esc(u)}" alt="">` : `<div class="ph"></div>`);
 const num = (x) => (x ?? 0).toLocaleString();
 const PAGE = 50;
@@ -176,7 +176,7 @@ async function showIssue(id) {
       <p>${esc(txt(i.description).slice(0, 900))}</p>
     </div></div>
     ${sec("Characters", i.character_credits)}${sec("People", i.person_credits)}${sec("Teams", i.team_credits)}${sec("Locations", i.location_credits)}${sec("Story arcs", i.story_arc_credits)}
-    ${extra ? `<h4>Associated images</h4><div style="display:flex;flex-wrap:wrap;gap:6px">${extra}</div>` : ""}`;
+    ${extra ? `<h4>Associated images</h4><div class="gallery">${extra}</div>` : ""}`;
 }
 
 // Featured publishers first (in this order), then the rest alphabetically.

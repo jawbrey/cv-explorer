@@ -73,3 +73,6 @@ body.nofilters #filters { display: none; }
 
 .pager { justify-content: center; }
 
+
+.gallery { display: flex; flex-wrap: wrap; gap: 8px; }
+.gallery img { height: 190px; width: auto; border-radius: 3px; }

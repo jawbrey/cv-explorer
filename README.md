@@ -82,6 +82,26 @@ npm run tauri build
 
 They are written to `src-tauri/target/release/bundle/`.
 
+## Building for all platforms
+
+Tauri cannot cross-compile, so installers for each platform are built on GitHub Actions (`.github/workflows/`):
+- **`build.yml`** runs on every push to `main`, every pull request, and manually. It builds Linux, Windows, macOS (Apple Silicon) and macOS (Intel) and keeps the installers as workflow artifacts.
+- **`release.yml`** runs when you push a tag such as `v0.1.0`, builds the same four targets and attaches them to a draft GitHub release.
+
+Before releasing, change `identifier` in `src-tauri/tauri.conf.json` to your own reverse-domain name, and keep `version` in `tauri.conf.json` and `src-tauri/Cargo.toml` in step. Builds are unsigned, so Windows SmartScreen and macOS Gatekeeper show a warning on first launch.
+
+## Troubleshooting unsigned builds
+The installers are not signed with a paid Apple or Microsoft certificate, so each operating system warns on first launch. The app itself is fine.
+- **macOS: "CV Explorer is damaged and can't be opened."** Drag the app from the disk image into `Applications` and eject the image. Then run this in Terminal and open the app again:
+  ```
+  xattr -cr "/Applications/CV Explorer.app"
+  ```
+  If macOS then says it can't verify the developer, right-click the app and choose Open, or go to System Settings, Privacy & Security, and click Open Anyway.
+- **Windows: "Windows protected your PC."** Click More info, then Run anyway.
+- **Linux AppImage:** make it executable first with `chmod +x CV-Explorer_*.AppImage`.
+
+To remove these warnings for good you need a Developer ID certificate and notarization on macOS (Apple Developer Program, paid) and a code-signing certificate on Windows.
+
 ## Where settings are stored
 - **Database path:** `settings.json` in the app config folder, for example `%APPDATA%\com.local.cvexplorer\` on Windows, `~/Library/Application Support/com.local.cvexplorer/` on macOS and `~/.config/com.local.cvexplorer/` on Linux.
 - **Theme and filter-panel visibility:** the webview's local storage.
