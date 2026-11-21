@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CV Explorer</title>
+  <script>
+    // Saved choice wins; otherwise follow the OS (dark if it expresses no preference).
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem("cv-theme"); } catch (e) {}
+      if (!t) t = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <button id="ftoggle" title="Show/hide filters">☰ Filters</button>
+    <span id="stats" class="muted"></span>
+    <button id="open">Open DB…</button>
+    <button id="theme" title="Switch light/dark theme"></button>
+  </header>
+  <main>
+    <aside id="filters">
+      <div id="fseries">
+        <button id="fclear" disabled title="Reset filters (selects only the pinned publishers)">Clear all</button>
+        <h4>Publisher</h4>
+        <details id="pub" class="ms"><summary>All publishers</summary></details>
+        <h4>Series Year</h4>
+        <details id="yr" class="ms"><summary>All years</summary></details>
+        <h4>Issue Year</h4>
+        <details id="iyr" class="ms"><summary>All years</summary></details>
+      </div>
+      <p id="fnote" class="muted" hidden>Filters apply to Series.</p>
+    </aside>
+    <section id="left">
+      <div class="controls">
+        <input id="q" placeholder="Search series name…" autofocus>
+        
+        <select id="flt" hidden>
+          <option value="all">All files</option>
+          <option value="matched">Matched</option>
+          <option value="unmatched">Unmatched</option>
+          <option value="dups">Duplicates (MD5)</option>
+        </select>
+      </div>
+      <div id="rows"></div>
+      <div class="pager"><button id="prev">←</button><span id="pg" class="muted"></span><button id="next">→</button></div>
+    </section>
+    <section id="detail"><p class="muted">Select a volume or file.</p></section>
+  </main>
+  <div id="lb" hidden><img alt=""></div>
+  <script src="main.js"></script>
+</body>
+</html>
