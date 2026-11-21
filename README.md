@@ -4,6 +4,10 @@ A desktop app for browsing a local [ComicVine](https://comicvine.gamespot.com/) 
 
 Built with [Tauri v2](https://tauri.app/) (Rust backend, plain HTML/CSS/JavaScript frontend). Runs on Windows, macOS and Linux.
 
+![CV Explorer: filter panel, series list and a series page](docs/screenshots/overview.png)
+
+*Screenshots show sample data, not a real library.*
+
 ## Features
 
 ### Opening a database
@@ -26,6 +30,8 @@ A left-hand panel, shown or hidden with the **☰ Filters** button in the header
 - **Issue Year**: multi-select on the year of an issue's cover date; matches series with at least one issue from that year.
 - **Only the pinned publishers are selected at startup.** **Clear all** resets the panel to that default: pinned publishers selected, both year filters empty. Each dropdown also has its own **Clear selection** button, which deselects everything in that dropdown and empties its filter box.
 
+![The Publisher filter with the pinned publishers above the divider](docs/screenshots/filters.png)
+
 ### Series page
 - Cover, name, publisher, start year, issue count, aliases and description.
 - Issue list with a cover thumbnail, issue number, title, cover date and the number of local files linked to the issue.
@@ -37,6 +43,8 @@ A left-hand panel, shown or hidden with the **☰ Filters** button in the header
   - decimals (`1.5`) and text (`annual`) also work
 - A **CVID** button on every row copies that issue's CVID.
 
+![Issue-number filter showing issues 1-3, 7 and 10 to the last](docs/screenshots/issue-filter.png)
+
 ### Issue page
 - Cover, title, series, publisher, cover and store dates, description.
 - Credits shown as tags: characters, people, teams, locations and story arcs.
@@ -45,12 +53,17 @@ A left-hand panel, shown or hidden with the **☰ Filters** button in the header
 - **Open ComicVine** opens the issue's Comic Vine page in your default browser (it uses the stored `site_detail_url`, or builds the standard issue URL).
 - **◀ / ▶** buttons, or the left and right arrow keys, step to the previous or next issue of the series. A counter shows your position (for example `3 / 12`).
 
+![Issue page with credits, CVID buttons and previous/next arrows](docs/screenshots/issue-detail.png)
+
 ### Images
 Click any thumbnail or cover to open a larger version in a pop-up. The app tries the original-size image first and falls back to the one it has. Click anywhere or press Esc to close.
+
+![Click a cover to see it larger](docs/screenshots/image-popup.png)
 
 ### Themes
 Light and dark themes, switched with the toggle in the header. Until you choose one, the app follows your operating system's light or dark setting.
 
+![The light theme](docs/screenshots/light-theme.png)
 
 ## Running from source
 
